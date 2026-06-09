@@ -1,0 +1,37 @@
+sources:
+  - id: prometheus_repo
+    type: code_repo
+    path: data/code_repo/prometheus
+    description: Prometheus source repository
+    include_paths:
+      - README.md
+      - docs/
+      - documentation/
+      - cmd/prometheus/
+      - config/
+      - scrape/
+      - discovery/
+      - rules/
+      - promql/
+      - tsdb/
+      - storage/remote/
+    exclude_paths:
+      - .git/
+      - web/ui/node_modules/
+      - vendor/
+      - testdata/
+
+  - id: design_docs
+    type: design_doc
+    path: data/design_docs
+    description: Self-written mini design docs for Prometheus operational concepts
+
+  - id: logs
+    type: log
+    path: data/logs
+    description: Synthetic Prometheus operational logs
+
+  - id: incidents
+    type: incident
+    path: data/incidents
+    description: Synthetic incident reports based on common Prometheus failures
