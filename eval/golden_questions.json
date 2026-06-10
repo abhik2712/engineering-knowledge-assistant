@@ -1,0 +1,49 @@
+[
+  {
+    "question": "Why did the Kubernetes pod target fail scraping?",
+    "expected_sources": [
+      "data/logs/scrape_timeout.log",
+      "data/incidents/INC-001-scrape-timeout.md",
+      "data/design_docs/prometheus_scrape_lifecycle.md"
+    ]
+  },
+  {
+    "question": "Why did Prometheus config reload fail?",
+    "expected_sources": [
+      "data/logs/config_reload_failure.log",
+      "data/incidents/INC-002-config-reload-failure.md"
+    ]
+  },
+  {
+    "question": "What caused Prometheus startup to abort?",
+    "expected_sources": [
+      "data/logs/tsdb_wal_corruption.log",
+      "data/incidents/INC-003-tsdb-wal-corruption.md",
+      "data/design_docs/prometheus_tsdb_storage.md"
+    ]
+  },
+  {
+    "question": "Why were remote write samples dropped?",
+    "expected_sources": [
+      "data/logs/remote_write_backpressure.log",
+      "data/incidents/INC-004-remote-write-backpressure.md",
+      "data/design_docs/prometheus_remote_write.md"
+    ]
+  },
+  {
+    "question": "Why did the HighErrorRate alert not update?",
+    "expected_sources": [
+      "data/logs/alert_rule_evaluation_failure.log",
+      "data/incidents/INC-005-alert-rule-evaluation-failure.md",
+      "data/design_docs/prometheus_alerting_rules.md"
+    ]
+  },
+  {
+    "question": "Why did Prometheus fail to discover Kubernetes pods?",
+    "expected_sources": [
+      "data/logs/service_discovery_failure.log",
+      "data/incidents/INC-006-service-discovery-failure.md",
+      "data/design_docs/prometheus_service_discovery.md"
+    ]
+  }
+]
