@@ -20,3 +20,22 @@ Clone the Prometheus repository:
 ```bash
 mkdir -p data/code_repo
 git clone https://github.com/prometheus/prometheus.git data/code_repo/prometheus
+
+## Week 1 Day 3: Ingestion Design
+
+Designed the ingestion layer for the engineering knowledge assistant.
+
+### Key Decisions
+
+- Raw files will first be converted into `RawDocument` objects.
+- Documents will be parsed based on source type.
+- Chunks will be source-aware instead of using one generic splitter.
+- Design docs and incidents will use Markdown section-based chunking.
+- Logs will use grouped event-based chunking.
+- Code will initially use line-range chunking, with function-aware parsing planned later.
+- Every chunk will carry metadata such as source type, path, component, tags, and related sources.
+
+### Planned Ingestion Flow
+
+```text
+Raw files → RawDocument → Parsed sections/events/code blocks → ChunkDocument → JSONL output
