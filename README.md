@@ -39,3 +39,33 @@ Designed the ingestion layer for the engineering knowledge assistant.
 
 ```text
 Raw files → RawDocument → Parsed sections/events/code blocks → ChunkDocument → JSONL output
+
+## Week 1 Day 4: Basic Ingestion Pipeline
+
+Implemented the first version of the ingestion pipeline.
+
+### What It Does
+
+- Loads raw files from design docs, logs, incidents, and selected Prometheus source directories.
+- Converts each file into a `RawDocument`.
+- Applies source-aware chunking.
+- Converts each retrievable unit into a `ChunkDocument`.
+- Writes ingestion artifacts to JSONL files.
+
+### Chunking Strategies
+
+| Source Type | Strategy |
+|---|---|
+| Design docs | Markdown section-based chunking |
+| Incidents | Markdown section-based chunking |
+| Logs | Grouped log lines |
+| Code | Line-range chunks with overlap |
+
+### Output Files
+
+- `data/metadata/ingested_documents.jsonl`
+- `data/metadata/chunks.jsonl`
+
+### Why This Matters
+
+The ingestion layer makes retrieval source-aware, metadata-rich, and citation-friendly. This avoids treating code, logs, incidents, and design documents as generic plain text.
