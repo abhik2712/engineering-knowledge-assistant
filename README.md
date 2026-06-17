@@ -20,7 +20,7 @@ Clone the Prometheus repository:
 ```bash
 mkdir -p data/code_repo
 git clone https://github.com/prometheus/prometheus.git data/code_repo/prometheus
-
+```
 ## Week 1 Day 3: Ingestion Design
 
 Designed the ingestion layer for the engineering knowledge assistant.
@@ -39,7 +39,7 @@ Designed the ingestion layer for the engineering knowledge assistant.
 
 ```text
 Raw files → RawDocument → Parsed sections/events/code blocks → ChunkDocument → JSONL output
-
+```
 ## Week 1 Day 4: Basic Ingestion Pipeline
 
 Implemented the first version of the ingestion pipeline.
