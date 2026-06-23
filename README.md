@@ -69,3 +69,68 @@ Implemented the first version of the ingestion pipeline.
 ### Why This Matters
 
 The ingestion layer makes retrieval source-aware, metadata-rich, and citation-friendly. This avoids treating code, logs, incidents, and design documents as generic plain text.
+
+## Week 1 Day 5: Indexing Design
+
+Designed the indexing layer for the RAG system.
+
+### Index Types
+
+The system will use two retrieval indexes:
+
+| Index | Purpose |
+|---|---|
+| Vector index | Semantic retrieval |
+| BM25 index | Keyword and exact-match retrieval |
+
+### Embedding Model
+
+Initial embedding model:
+
+`sentence-transformers/all-MiniLM-L6-v2`
+
+This model is lightweight, local, and sufficient for a first retrieval baseline.
+
+### Indexing Flow
+
+```text
+chunks.jsonl
+  → embedding text construction
+  → vector embeddings
+  → FAISS index
+  → BM25 index
+```
+
+## Week 1 Day 6: Indexing Implementation
+
+Implemented the first indexing layer for the engineering knowledge assistant.
+
+### Implemented Indexes
+
+| Index | Purpose |
+|---|---|
+| FAISS vector index | Semantic retrieval |
+| BM25 index | Keyword and exact-match retrieval |
+
+### Input
+
+- `data/metadata/chunks.jsonl`
+
+### Outputs
+
+- `data/indexes/vector/faiss.index`
+- `data/indexes/vector/chunk_store.jsonl`
+- `data/indexes/bm25/bm25.pkl`
+- `data/indexes/bm25/chunk_store.jsonl`
+
+### Key Design Choice
+
+Each chunk is converted into metadata-aware searchable text before indexing. This improves retrieval by including source type, component, section, severity, tags, path, and content.
+
+### Manual Test Queries
+
+- Why are targets becoming unhealthy during scraping?
+- context deadline exceeded
+- What caused INC-003?
+- Explain remote write backpressure
+- Which component handles alert rule evaluation?
