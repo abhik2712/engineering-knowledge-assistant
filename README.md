@@ -134,3 +134,71 @@ Each chunk is converted into metadata-aware searchable text before indexing. Thi
 - What caused INC-003?
 - Explain remote write backpressure
 - Which component handles alert rule evaluation?
+
+## Week 1 Day 7: Basic Retriever Layer
+
+Implemented the first retrieval layer over the indexed corpus.
+
+### Implemented Retrievers
+
+| Retriever | Purpose |
+|---|---|
+| VectorRetriever | Semantic search over FAISS index |
+| BM25Retriever | Keyword and exact-match search over BM25 index |
+
+### Common Result Model
+
+Both retrievers return a common `RetrievalResult` object containing:
+
+- chunk_id
+- doc_id
+- content
+- score
+- rank
+- retriever name
+- source_type
+- path
+- metadata
+
+### Filtering Support
+
+Retrievers support metadata-aware filtering, for example:
+
+```python
+filters={"source_type": "incident"}
+filters={"component": "scrape_manager"}
+```
+
+## Week 2 Day 8: Hybrid Retrieval with RRF
+
+Implemented hybrid retrieval by combining vector search and BM25 search using Reciprocal Rank Fusion.
+
+### Why Hybrid Retrieval?
+
+Vector search handles semantic queries, while BM25 handles exact matches such as:
+
+- incident IDs
+- error messages
+- component names
+- code symbols
+- config keys
+
+Combining both improves recall and robustness for engineering questions.
+
+### Implemented Components
+
+- `VectorRetriever`
+- `BM25Retriever`
+- `reciprocal_rank_fusion`
+- `HybridRetriever`
+
+### Retrieval Flow
+
+```text
+User query
+  → VectorRetriever top-k
+  → BM25Retriever top-k
+  → RRF fusion
+  → final top-k chunks
+```
+
